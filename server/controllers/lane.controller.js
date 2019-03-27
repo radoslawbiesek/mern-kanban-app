@@ -1,4 +1,5 @@
 import Lane from '../models/lane';
+import deleteNote from '../controllers/note.controller';
 import uuid from 'uuid';
 
 export function getSomething(req, res) {
@@ -30,7 +31,7 @@ export function updateLane(req, res) {
   if (!req.body.name) {
     res.status(403).end();
   }
-  
+
   Lane.findOneAndUpdate({"id": req.params.laneId}, {"name": req.body.name}, function(err, updated) {
     if (err) {
       res.status(500).send(err);

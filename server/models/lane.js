@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import Note from './note';
+
 const Schema = mongoose.Schema;
 mongoose.plugin(schema => { schema.options.usePushEach = true });
 
@@ -12,8 +14,20 @@ function populateNotes(next) {
     this.populate('notes');
     next();
 }
-  
+ 
+function deleteNotes(next) {
+    console.log(this.notes);
+    const notesToDelete = this.notes;
+    notesToDelete.forEach(noteToDelete => {
+        Note.findOne({ "id": noteToDelete.id }, function(err, note) {
+            note.remove();
+        })        
+    });
+    next();
+}
+
 laneSchema.pre('find', populateNotes);
 laneSchema.pre('findOne', populateNotes);
+laneSchema.pre('remove', deleteNotes);
 
 export default mongoose.model('Lane', laneSchema);
