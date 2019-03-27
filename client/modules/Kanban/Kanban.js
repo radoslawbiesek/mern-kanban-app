@@ -32,4 +32,7 @@ const mapDispatchToProps = {
   createLane,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Kanban);
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Kanban);

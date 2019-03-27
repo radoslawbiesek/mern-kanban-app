@@ -25,10 +25,10 @@ export function updateLane(lane) {
     };
 }
 
-export function editLane(lane) {
+export function editLane(laneId) {
     return {
         type: EDIT_LANE,
-        lane,
+        laneId,
     }
 }
 
