@@ -44,3 +44,12 @@ export function deleteNote(req, res) {
     });
   });
 }
+
+export function getNotes(req, res) {
+  Note.find().exec((err, notes) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  res.json( { notes });
+  });
+}
