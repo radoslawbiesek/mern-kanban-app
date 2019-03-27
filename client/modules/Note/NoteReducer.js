@@ -11,12 +11,12 @@ const NoteReducer = (state = initialState, action) => {
 
     case UPDATE_NOTE:
       return state.map(note => {
-        return note.id === action.id ? {...note, ...action.note} : note; 
+        return note.id === action.note.id ? {...note, ...action.note} : note; 
       });
 
     case EDIT_NOTE:
     return state.map(note => {
-      return note.id === action.id ? {...note, ...action.note, editing: true } : note; 
+      return note.id === action.noteId ? {...note, ...action.note, editing: true } : note; 
     });
     
     case DELETE_NOTE:

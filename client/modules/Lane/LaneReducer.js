@@ -12,12 +12,12 @@ export default function lanes(state = initialState, action) {
     
     case UPDATE_LANE:
       return state.map(lane => {
-        return lane.id === action.id ? {...lane, ...action.lane} : lane;
+        return lane.id === action.lane.id ? {...lane, ...action.lane} : lane;
       });
 
     case EDIT_LANE:
     return state.map(lane => {
-      return lane.id === action.id ? {...lane, ...action.lane, editing: true} : lane;
+      return lane.id === action.laneId ? {...lane, ...action.lane, editing: true} : lane;
     });
 
     case DELETE_LANE:
@@ -35,7 +35,7 @@ export default function lanes(state = initialState, action) {
     case DELETE_NOTE:
       return state.map(lane => {
         if (lane.id === action.laneId) {
-          lane.notes.filter(note => note.id !== action.noteId);
+          lane.notes = lane.notes.filter(noteId => noteId !== action.noteId);
         }
         return lane;
       });
