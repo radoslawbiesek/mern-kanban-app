@@ -5,24 +5,6 @@ export function getSomething(req, res) {
   return res.status(200).end();
 }
 
-export function addLane(req, res) {
-  if (!req.body.name) {
-    res.status(403).end();
-  }
-
-  const newLane = new Lane(req.body);
-
-  newLane.notes = [];
-
-  newLane.id = uuid();
-  newLane.save((err, saved) => {
-    if (err) {
-      res.status(500).send(err);
-    }
-    res.json(saved);
-  });
-}
-
 export function getLanes(req, res) {
   Lane.find().exec((err, lanes) => {
     if (err) {
@@ -48,12 +30,29 @@ export function updateLane(req, res) {
   if (!req.body.name) {
     res.status(403).end();
   }
-  const newName = req.body.name;
-
-  Lane.updateOne( { id: req.params.laneId } ).exec((err, lane) => {
+  
+  Lane.findOneAndUpdate({"id": req.params.laneId}, {"name": req.body.name}, function(err, updated) {
     if (err) {
       res.status(500).send(err);
     }
-    lane.name = newName;
+    res.json(updated);
+  })
+}
+
+export function addLane(req, res) {
+  if (!req.body.name) {
+    res.status(403).end();
+  }
+
+  const newLane = new Lane(req.body);
+
+  newLane.notes = [];
+
+  newLane.id = uuid();
+  newLane.save((err, saved) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json(saved);
   });
 }
