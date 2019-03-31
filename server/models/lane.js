@@ -16,7 +16,6 @@ function populateNotes(next) {
 }
  
 function deleteNotes(next) {
-    console.log(this.notes);
     const notesToDelete = this.notes;
     notesToDelete.forEach(noteToDelete => {
         Note.findOne({ "id": noteToDelete.id }, function(err, note) {
