@@ -1,6 +1,7 @@
 import callApi from '../../util/apiCaller';
 import { lanes } from '../../util/schema';
 import { normalize } from 'normalizr';
+import { createNotes } from '../Note/NoteActions';
 
 // Export Constants
 export const CREATE_LANE = 'CREATE_LANE';
@@ -70,7 +71,7 @@ export function fetchLanes() {
     return (dispatch) => {
         return callApi('lanes').then(res => {
             const normalized = normalize(res.lanes, lanes);
-            const {lanes: normalizedLanes} = normalized.entities;
+            const { lanes: normalizedLanes, notes } = normalized.entities;
 
             dispatch(createLanes(normalizedLanes));
             dispatch(createNotes(notes));

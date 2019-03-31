@@ -4,11 +4,12 @@ import styles from './Notes.css';
 import Edit from '../../components/Edit';
 import { updateNote, deleteNote, editNote } from './NoteActions';
 
-const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
-  return (<ul className={styles.notes}>{notes.map((note) =>
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote, moveWithinLane }) => (
+  <ul className={styles.notes}>{notes.map((note) =>
     <Note
       id={note.id}
       key={note.id}
+      moveWithinLane={moveWithinLane}
       editing={note.editing}
     >
       <Edit 
@@ -23,8 +24,9 @@ const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
         onDelete={() => deleteNote(note.id, laneId)}
       />
     </Note>
-  )}</ul>);
-};
+    )}
+  </ul>
+);
 
 // Notes.propTypes = {
 //   notes: PropTypes.array,
