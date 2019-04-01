@@ -13,19 +13,18 @@ export const CREATE_LANES = 'CREATE_LANES';
 // Export Actions
 export function createLane(lane) {
     return {
-        type: CREATE_LANE,
-        lane: {
-            notes: [],
-            ...lane,
-        }
+      type: CREATE_LANE,
+      lane,
     };
-}
+  }
 
 export function createLaneRequest(lane) {
     return (dispatch) => {
-        return callApi('lanes', 'post', lane).then(res => dispatch(createLane(res)));
+      return callApi('lanes', 'post', lane).then(res => {
+        dispatch(createLane(res));
+      });
     };
-}
+  }
 
 export function updateLane(lane) {
     return {

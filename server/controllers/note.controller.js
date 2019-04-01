@@ -35,13 +35,18 @@ export function addNote(req, res) {
 
 export function deleteNote(req, res) {
   Note.findOne( { id: req.params.noteId }).exec((err, note) => {
+
     if (err) {
       res.status(500).send(err);
     }
 
-    note.remove(() => {
-      res.status(200).end();
-    });
+    lane.findOne({"notes" : { $in: [note._id] } } )
+      .then(lane => {
+        const notesCopy = lane.notes.filter(noteCopy => noteCopy.id !== note.id);
+        lane.notes = notesCopy;
+        return lane.save();
+      })
+      .then(() => note.remove(() => res.status(200).end()));
   });
 }
 
@@ -52,4 +57,17 @@ export function getNotes(req, res) {
     }
   res.json( { notes });
   });
+}
+
+export function updateNote(req, res) {
+  if (!req.body.note.task) {
+    res.status(403).end();
+  }
+
+  Note.findOneAndUpdate({"id": req.params.noteId}, {"task": req.body.note.task}, {new: true}, (err, updated) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json(updated);
+  })
 }

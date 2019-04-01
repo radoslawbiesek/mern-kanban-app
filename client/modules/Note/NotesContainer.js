@@ -9,7 +9,6 @@ const mapDispatchToProps = {
     movieWithinLane,
 };
 
-
 export default connect(
     null, 
     mapDispatchToProps
