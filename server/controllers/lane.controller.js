@@ -1,5 +1,4 @@
 import Lane from '../models/lane';
-import deleteNote from '../controllers/note.controller';
 import uuid from 'uuid';
 
 export function getSomething(req, res) {

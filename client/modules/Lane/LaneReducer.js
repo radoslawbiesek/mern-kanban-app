@@ -14,22 +14,25 @@ export default function lanes(state = initialState, action) {
     case UPDATE_LANE:
       return { ...state, [action.lane.id]: action.lane };
 
-    case EDIT_LANE:
+    case EDIT_LANE: {
       const lane = { ...state[action.id], editing: true };
       return { ...state, [action.id]: lane };
+    }
 
     case CREATE_LANES: 
       return { ...action.lanes };
     
-    case DELETE_NOTE:
+    case DELETE_NOTE: {
       const newLane = { ...state[action.laneId] };
       newLane.notes = newLane.notes.filter(noteId => noteId !== action.noteId);
       return { ...state, [action.laneId]: newLane };
+    }
 
-    case CREATE_NOTE:
+    case CREATE_NOTE: {
       const newLane = { ...state[action.laneId] };
       newLane.notes = newLane.notes.concat(action.note.id);
       return { ...state, [action.laneId]: newLane };
+    }
 
     case DELETE_LANE:
       return omit(state, action.laneId);
