@@ -31,12 +31,12 @@ export function updateLane(req, res) {
     res.status(403).end();
   }
 
-  Lane.findOneAndUpdate({"id": req.params.laneId}, {"name": req.body.name}, function(err, updated) {
+  Lane.findOneAndUpdate({"id": req.params.laneId}, {"name": req.body.name}, {new: true}, (err, updated) => {
     if (err) {
       res.status(500).send(err);
     }
     res.json(updated);
-  })
+  });
 }
 
 export function addLane(req, res) {
