@@ -46,10 +46,7 @@ export function deleteNote(req, res) {
         lane.notes = notesCopy;
         return lane.save();
       })
-
-    note.remove(() => {
-      res.status(200).end();
-    });
+      .then(() => note.remove(() => res.status(200).end()));
   });
 }
 
