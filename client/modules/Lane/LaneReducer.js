@@ -23,7 +23,7 @@ export default function lanes(state = initialState, action) {
       return { ...action.lanes };
     
     case DELETE_NOTE: {
-      const newLane = { ...state[action.laneId] };
+      const newLane = state[action.laneId];
       newLane.notes = newLane.notes.filter(noteId => noteId !== action.noteId);
       return { ...state, [action.laneId]: newLane };
     }
